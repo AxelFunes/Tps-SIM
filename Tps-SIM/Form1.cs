@@ -22,6 +22,10 @@ namespace Tps_SIM
         
         private void Form1_Load(object sender, EventArgs e)
         {
+            this.Hide();
+            Inicio ventana1 = new Inicio(this);
+            ventana1.ShowDialog();
+            this.Show();
             random = new GeneradorVariables();
             // inicializarChart()
             CmbDistribuciones.SelectedIndex = -1;
