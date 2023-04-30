@@ -195,7 +195,8 @@ namespace Tps_SIM
                     double fd = Math.Round(((lambda * Math.Pow(Math.E, (-lambda * marca))) * ancho), 4);
                     double fa = ((1 - Math.Pow(Math.E, -lambda * (num + ancho))) - (1 - Math.Pow(Math.E, -lambda * num)));
                     double fe = Math.Round(fa * n, 4);
-                    //grafico.Series(0).Points.AddXY("[ " + string.Format("{0:C4}", num).Replace("$", "").Replace("€", "") + " _ " + string.Format("{0:C4}", (num + ancho)).Replace("$", "").Replace("€", "") + sim, acum);
+                    //grafico.Series["Frecuencia Observada"].Points.AddXY(num,acum);
+                    grafico.Series["Frecuencia Observada"].Points.AddXY("[ " + string.Format("{0:C4}", num).Replace("$", "").Replace("€", "") + " _ " + string.Format("{0:C4}", (num + ancho)).Replace("$", "").Replace("€", "") + sim, acum);
                     TablaDatos.Rows.Add(num, num + ancho, acum, fd, fe);
                 }
             }
