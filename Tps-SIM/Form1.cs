@@ -51,19 +51,20 @@ namespace Tps_SIM
         // para cada distribucion
         private void inicializarChart()
         {
-            /*grafico.ChartAreas.Clear();
-            grafico.ChartAreas.Add(0);
-            grafico.ChartAreas(0).Axes(0).MajorGrid.LineColor = Color.Transparent;
-            grafico.ChartAreas(0).Axes(0).MajorTickMark.LineColor = Color.Transparent;
-            grafico.ChartAreas(0).Axes(0).ScaleView.Size = 3;
-            grafico.ChartAreas(0).Axes(0).Title = "Intervalos";
-            grafico.ChartAreas(0).Axes(1).Title = "Frecuencias";
+            //grafico.ChartAreas.Clear();
+            //grafico.ChartAreas.Add(0);
+            //grafico.ChartAreas(0).Axes(0).MajorGrid.LineColor = Color.Transparent;
+            //grafico.ChartAreas(0).Axes(0).MajorTickMark.LineColor = Color.Transparent;
+            //grafico.ChartAreas(0).Axes(0).ScaleView.Size = 3;
+            //grafico.ChartAreas(0).Axes(0).Title = "Intervalos";
+            //grafico.ChartAreas(0).Axes(1).Title = "Frecuencias";
 
             // SERIE
             grafico.Series.Clear();
-            grafico.Series.Add("Frec. Observadas");
-            grafico.Series(0).CustomProperties = "PointWidth=1";
-            grafico.Series(0).BorderColor = Color.Black; */
+            grafico.Series.Add("Frecuencia Observada");
+            //grafico.Series.Add("Frec. Observadas");
+            //grafico.Series(0).CustomProperties = "PointWidth=1";
+            //grafico.Series(0).BorderColor = Color.Black; 
         }
 
         // graficar(): esta funcion va a llamar a las funciones de graficar distribucion, segun el combo de distribuciones
@@ -133,7 +134,7 @@ namespace Tps_SIM
                         }
                     }
 
-                    //grafico.Series(0).Points.AddXY("[ " + string.Format("{0:C4}", num).Replace("$", "").Replace("€", "") + " _ " + string.Format("{0:C4}", (num + ancho)).Replace("$", "").Replace("€", "") + sim, acum);
+                    grafico.Series["Frecuencia Observada"].Points.AddXY("[ " + string.Format("{0:C4}", num).Replace("$", "").Replace("€", "") + " _ " + string.Format("{0:C4}", (num + ancho)).Replace("$", "").Replace("€", "") + sim, acum);
                     TablaDatos.Rows.Add(num, num + ancho, acum, fd, fe);
                 }
             }
@@ -163,7 +164,7 @@ namespace Tps_SIM
             double n = double.Parse(txtCantidad.Text);
             double lambda = double.Parse(TxtLambda.Text);
             double marca;
-
+            //grafico.Series.Add("Frecuencia Observada"); //Agrega la serie para luego cargarle la fo
 
             if (sinIntervalos == false)
             {
@@ -196,6 +197,7 @@ namespace Tps_SIM
                     double fa = ((1 - Math.Pow(Math.E, -lambda * (num + ancho))) - (1 - Math.Pow(Math.E, -lambda * num)));
                     double fe = Math.Round(fa * n, 4);
                     //grafico.Series["Frecuencia Observada"].Points.AddXY(num,acum);
+                    
                     grafico.Series["Frecuencia Observada"].Points.AddXY("[ " + string.Format("{0:C4}", num).Replace("$", "").Replace("€", "") + " _ " + string.Format("{0:C4}", (num + ancho)).Replace("$", "").Replace("€", "") + sim, acum);
                     TablaDatos.Rows.Add(num, num + ancho, acum, fd, fe);
                 }
@@ -256,7 +258,8 @@ namespace Tps_SIM
 
                     marca = Math.Round((num + num + ancho) / 2, 4); // (limInf + limSup) / 2
                     numerador = Math.Exp(-0.5) * Math.Pow((marca - m) / desv, 2);
-                    //grafico.Series(0).Points.AddXY("[ " + string.Format("{0:C4}", num).Replace("$", "").Replace("€", "") + " _ " + string.Format("{0:C4}", (num + ancho)).Replace("$", "").Replace("€", "") + sim, acum);
+                    
+                    grafico.Series["Frecuencia Observada"].Points.AddXY("[ " + string.Format("{0:C4}", num).Replace("$", "").Replace("€", "") + " _ " + string.Format("{0:C4}", (num + ancho)).Replace("$", "").Replace("€", "") + sim, acum);
                     fd = Math.Round(((numerador / denominador) * ancho), 4); // es P() -> Func. de Densidad
                     fe = Math.Round((n + 1) * fd, 4);
                     TablaDatos.Rows.Add(num, num + ancho, acum, fd, fe);
